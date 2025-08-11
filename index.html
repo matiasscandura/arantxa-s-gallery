@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arantxa's Art Gallery</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Playfair Display', 'Georgia', serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #6c5ce7;
+            text-decoration: none;
+        }
+
+        .contact-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        .btn-instagram {
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            color: white;
+        }
+
+        .btn-whatsapp {
+            background: #25d366;
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        main {
+            margin-top: 100px;
+            padding: 2rem 0;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 4rem 0;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 20px;
+            margin-bottom: 3rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            color: #2d3436;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #6c5ce7, #a29bfe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: #636e72;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .artwork {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .artwork:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .artwork-image {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(45deg, #ddd6fe, #c7d2fe);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: #6c5ce7;
+        }
+
+        .artwork-info {
+            padding: 1.5rem;
+        }
+
+        .artwork-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #2d3436;
+            margin-bottom: 0.5rem;
+        }
+
+        .artwork-description {
+            color: #636e72;
+            margin-bottom: 1rem;
+        }
+
+        .artwork-price {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #00b894;
+        }
+
+        .cta-section {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            color: #2d3436;
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            font-size: 1.2rem;
+            color: #636e72;
+            margin-bottom: 2rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-large {
+            padding: 16px 32px;
+            font-size: 1.1rem;
+        }
+
+        footer {
+            background: rgba(45, 52, 54, 0.9);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 0;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: modalSlideIn 0.3s ease-out;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            padding: 2rem;
+            border-bottom: 1px solid #eee;
+            position: relative;
+        }
+
+        .close {
+            position: absolute;
+            right: 1.5rem;
+            top: 1.5rem;
+            color: #aaa;
+            font-size: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close:hover {
+            color: #333;
+        }
+
+        .modal-artwork-image {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(45deg, #ddd6fe, #c7d2fe);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: #6c5ce7;
+            border-radius: 15px;
+            margin-bottom: 1rem;
+        }
+
+        .modal-body {
+            padding: 2rem;
+        }
+
+        .modal-title {
+            font-size: 2rem;
+            color: #2d3436;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .modal-description {
+            color: #636e72;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .modal-price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #00b894;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .message-form {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 15px;
+            margin-top: 2rem;
+        }
+
+        .form-question {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #2d3436;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .message-textarea {
+            width: 100%;
+            min-height: 120px;
+            padding: 1rem;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-family: 'Playfair Display', 'Georgia', serif;
+            font-size: 1rem;
+            resize: vertical;
+            margin-bottom: 1.5rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .message-textarea:focus {
+            outline: none;
+            border-color: #6c5ce7;
+        }
+
+        .send-btn {
+            background: #25d366;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .send-btn:hover {
+            background: #128c7e;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .contact-buttons {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .modal-content {
+                width: 95%;
+                margin: 10% auto;
+            }
+
+            .modal-header, .modal-body {
+                padding: 1.5rem;
+            }
+
+            .modal-artwork-image {
+                height: 200px;
+                font-size: 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <a href="#" class="logo">Arantxa's Gallery</a>
+            <div class="contact-buttons">
+                <a href="https://instagram.com/arantxaas_26" target="_blank" class="btn btn-instagram">
+                    <i class="fab fa-instagram"></i>
+                    Instagram
+                </a>
+                <a href="https://wa.me/13214997879" target="_blank" class="btn btn-whatsapp">
+                    <i class="fab fa-whatsapp"></i>
+                    WhatsApp
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section class="hero">
+            <h1>Welcome to My Art Gallery</h1>
+            <p>Description of the web</p>
+        </section>
+
+        <section class="gallery">
+            <div class="artwork">
+                <div class="artwork-image">
+                </div>
+                <div class="artwork-info">
+                    <h3 class="artwork-title">Piece of Art 1</h3>
+                    <p class="artwork-description">Description of the piece</p>
+                    <div class="artwork-price">Starting price: $00.00</div>
+                </div>
+            </div>
+
+            <div class="artwork">
+                <div class="artwork-image">
+                </div>
+                <div class="artwork-info">
+                    <h3 class="artwork-title">piece of art 2</h3>
+                    <p class="artwork-description">description of the piece.</p>
+                    <div class="artwork-price">Starting at $00.00</div>
+                </div>
+            </div>
+
+            <div class="artwork">
+                <div class="artwork-image">
+                </div>
+                <div class="artwork-info">
+                    <h3 class="artwork-title">piece of art 3</h3>
+                    <p class="artwork-description">description of the piece.</p>
+                    <div class="artwork-price">Starting at $00.00</div>
+                </div>
+            </div>
+
+            <div class="artwork">
+                <div class="artwork-image">
+                </div>
+                <div class="artwork-info">
+                    <h3 class="artwork-title">piece of art 4</h3>
+                    <p class="artwork-description">description of the piece.</p>
+                    <div class="artwork-price">Starting at $00.00</div>
+                </div>
+            </div>
+
+            <div class="artwork">
+                <div class="artwork-image">
+                </div>
+                <div class="artwork-info">
+                    <h3 class="artwork-title">piece of art 5</h3>
+                    <p class="artwork-description">description of the piece.</p>
+                    <div class="artwork-price">Starting at $00.00</div>
+                </div>
+            </div>
+
+            <div class="artwork">
+                <div class="artwork-image">
+                </div>
+                <div class="artwork-info">
+                    <h3 class="artwork-title">piece of art 6</h3>
+                    <p class="artwork-description">description of the piece.</p>
+                    <div class="artwork-price">Starting at $00.00</div>
+                </div>
+            </div>
+
+            <div class="artwork custom-artwork" onclick="openCustomModal()">
+                <div class="artwork-image custom-image">
+                    <i class="fas fa-palette"></i>
+                </div>
+                <div class="artwork-info">
+                    <h3 class="artwork-title">Custom</h3>
+                    <p class="artwork-description">Commission a personalized artwork</p>
+                    <div class="artwork-price">Contact for pricing</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-section">
+            <h2>Ready to Own a Piece?</h2>
+            <p>Contact me directly to discuss your favorite artwork, ask questions, or commission a custom piece. I'm here to help you find the perfect addition to your collection.</p>
+            <div class="cta-buttons">
+                <a href="https://instagram.com/arantxaas_26" target="_blank" class="btn btn-instagram btn-large">
+                    <i class="fab fa-instagram"></i>
+                    View My Gallery on Instagram
+                </a>
+                <a href="https://wa.me/13214997879" target="_blank" class="btn btn-whatsapp btn-large">
+                    <i class="fab fa-whatsapp"></i>
+                    Message Me on WhatsApp
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Arantxa's Art Gallery. All rights reserved. | Follow me on social media for latest updates!</p>
+        </div>
+    </footer>
+
+    <!-- Modal -->
+    <div id="artworkModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="modal-artwork-image" id="modalArtworkImage"></div>
+                <h2 class="modal-title" id="modalTitle"></h2>
+                <p class="modal-description" id="modalDescription"></p>
+                <div class="modal-price" id="modalPrice"></div>
+                
+                <div class="message-form">
+                    <div class="form-question">Why do you want the product?</div>
+                    <textarea class="message-textarea" id="messageText" placeholder="Tell me why you're interested in this piece..."></textarea>
+                    <button class="send-btn" onclick="sendMessage()">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Get modal elements
+        const modal = document.getElementById('artworkModal');
+        const closeBtn = document.getElementsByClassName('close')[0];
+        const artworks = document.getElementsByClassName('artwork');
+
+        // Add click event to all artwork items
+        for (let i = 0; i < artworks.length; i++) {
+            artworks[i].addEventListener('click', function() {
+                openModal(this);
+            });
+        }
+
+        // Open modal function
+        function openModal(artworkElement) {
+            const title = artworkElement.querySelector('.artwork-title').textContent;
+            const description = artworkElement.querySelector('.artwork-description').textContent;
+            const price = artworkElement.querySelector('.artwork-price').textContent;
+
+            // Update modal content
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalDescription').textContent = description;
+            document.getElementById('modalPrice').textContent = price;
+            
+            // Clear previous message
+            document.getElementById('messageText').value = '';
+
+            // Show modal
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        }
+
+        // Close modal when clicking the X
+        closeBtn.onclick = function() {
+            closeModal();
+        }
+
+        // Close modal when clicking outside of it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+
+        // Close modal function
+        function closeModal() {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto'; // Restore scrolling
+        }
+
+        // Send message function
+        function sendMessage() {
+            const message = document.getElementById('messageText').value.trim();
+            const artworkTitle = document.getElementById('modalTitle').textContent;
+            
+            if (message === '') {
+                alert('Please write a message before sending.');
+                return;
+            }
+
+            // Create WhatsApp message
+            const whatsappMessage = `Hi! I'm interested in "${artworkTitle}". ${message}`;
+            const phoneNumber = '13214997879';
+            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+            
+            // Open WhatsApp
+            window.open(whatsappUrl, '_blank');
+            
+            // Close modal after sending
+            closeModal();
+        }
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
