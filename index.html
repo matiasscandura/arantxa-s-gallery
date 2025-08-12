@@ -35,6 +35,12 @@
             width: 100%;
             top: 0;
             z-index: 1000;
+            transition: transform 0.3s ease, padding 0.3s ease;
+        }
+
+        header.scrolled {
+            transform: translateY(-10px);
+            padding: 0.5rem 0;
         }
 
         nav {
@@ -42,6 +48,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 1rem 0;
+            transition: padding 0.3s ease;
         }
 
         .logo {
@@ -49,6 +56,7 @@
             font-weight: bold;
             color: #6c5ce7;
             text-decoration: none;
+            transition: font-size 0.3s ease;
         }
 
         .contact-buttons {
@@ -82,6 +90,10 @@
         .btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-text {
+            transition: opacity 0.3s ease;
         }
 
         main {
@@ -145,6 +157,10 @@
             justify-content: center;
             font-size: 3rem;
             color: #6c5ce7;
+        }
+
+        .custom-image {
+            background: linear-gradient(45deg, #fd79a8, #fdcb6e);
         }
 
         .artwork-info {
@@ -357,54 +373,241 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
 
+        /* Mobile Responsive Styles */
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
+            .container {
+                padding: 0 15px;
             }
-            
+
+            /* Header mobile optimizations */
+            header {
+                padding: 0.5rem 0;
+            }
+
+            header.scrolled {
+                transform: translateY(-5px);
+                padding: 0.3rem 0;
+            }
+
+            nav {
+                padding: 0.8rem 0;
+            }
+
+            .logo {
+                font-size: 1.5rem;
+            }
+
+            header.scrolled .logo {
+                font-size: 1.2rem;
+            }
+
+            /* Hide button text on mobile, show only icons */
+            .btn-text {
+                display: none;
+            }
+
+            .btn {
+                padding: 10px;
+                min-width: 44px;
+                justify-content: center;
+            }
+
             .contact-buttons {
-                flex-direction: column;
                 gap: 0.5rem;
             }
-            
-            .btn {
-                padding: 10px 20px;
-                font-size: 0.9rem;
+
+            /* Main content mobile adjustments */
+            main {
+                margin-top: 80px;
+                padding: 1rem 0;
             }
-            
+
+            .hero {
+                padding: 2.5rem 1rem;
+                margin-bottom: 2rem;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+                line-height: 1.2;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+                padding: 0 1rem;
+            }
+
+            /* Gallery mobile layout */
+            .gallery {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                margin-bottom: 2rem;
+            }
+
+            .artwork {
+                margin: 0 auto;
+                max-width: 350px;
+            }
+
+            .artwork-image {
+                height: 200px;
+                font-size: 2.5rem;
+            }
+
+            .artwork-info {
+                padding: 1.2rem;
+            }
+
+            .artwork-title {
+                font-size: 1.2rem;
+            }
+
+            .artwork-description {
+                font-size: 0.95rem;
+            }
+
+            .artwork-price {
+                font-size: 1.1rem;
+            }
+
+            /* CTA section mobile */
+            .cta-section {
+                padding: 2rem 1rem;
+                margin: 0 1rem;
+            }
+
+            .cta-section h2 {
+                font-size: 1.8rem;
+            }
+
+            .cta-section p {
+                font-size: 1rem;
+            }
+
             .cta-buttons {
                 flex-direction: column;
                 align-items: center;
+                gap: 1rem;
             }
 
+            .btn-large {
+                padding: 14px 28px;
+                font-size: 1rem;
+                width: 100%;
+                max-width: 280px;
+            }
+
+            /* Modal mobile adjustments */
             .modal-content {
                 width: 95%;
-                margin: 10% auto;
+                margin: 8% auto;
+                max-height: 85vh;
+                overflow-y: auto;
             }
 
             .modal-header, .modal-body {
-                padding: 1.5rem;
+                padding: 1.2rem;
             }
 
             .modal-artwork-image {
-                height: 200px;
+                height: 180px;
                 font-size: 3rem;
+            }
+
+            .modal-title {
+                font-size: 1.5rem;
+            }
+
+            .modal-description {
+                font-size: 1rem;
+            }
+
+            .modal-price {
+                font-size: 1.3rem;
+            }
+
+            .message-form {
+                padding: 1.5rem;
+            }
+
+            .form-question {
+                font-size: 1.1rem;
+            }
+
+            .message-textarea {
+                min-height: 100px;
+                font-size: 0.95rem;
+            }
+
+            /* Footer mobile */
+            footer {
+                padding: 1.5rem 0;
+                font-size: 0.9rem;
+            }
+
+            /* Touch-friendly improvements */
+            .artwork {
+                touch-action: manipulation;
+            }
+
+            .btn, .send-btn {
+                touch-action: manipulation;
+                min-height: 44px;
+            }
+        }
+
+        /* Extra small screens */
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .artwork {
+                max-width: 100%;
+            }
+
+            .modal-content {
+                width: 98%;
+                margin: 5% auto;
+            }
+
+            .cta-section {
+                margin: 0 0.5rem;
+            }
+        }
+
+        /* Landscape mobile orientation */
+        @media (max-width: 768px) and (orientation: landscape) {
+            .hero {
+                padding: 2rem 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .modal-content {
+                max-height: 90vh;
             }
         }
     </style>
 </head>
 <body>
-    <header>
+    <header id="header">
         <nav class="container">
             <a href="#" class="logo">Arantxa's Gallery</a>
             <div class="contact-buttons">
                 <a href="https://instagram.com/arantxaas_26" target="_blank" class="btn btn-instagram">
                     <i class="fab fa-instagram"></i>
-                    Instagram
+                    <span class="btn-text">Instagram</span>
                 </a>
                 <a href="https://wa.me/13214997879" target="_blank" class="btn btn-whatsapp">
                     <i class="fab fa-whatsapp"></i>
-                    WhatsApp
+                    <span class="btn-text">WhatsApp</span>
                 </a>
             </div>
         </nav>
@@ -431,9 +634,9 @@
                 <div class="artwork-image">
                 </div>
                 <div class="artwork-info">
-                    <h3 class="artwork-title">piece of art 2</h3>
-                    <p class="artwork-description">description of the piece.</p>
-                    <div class="artwork-price">Starting at $00.00</div>
+                    <h3 class="artwork-title">Piece of Art 2</h3>
+                    <p class="artwork-description">Description of the piece</p>
+                    <div class="artwork-price">Starting price: $00.00</div>
                 </div>
             </div>
 
@@ -441,9 +644,9 @@
                 <div class="artwork-image">
                 </div>
                 <div class="artwork-info">
-                    <h3 class="artwork-title">piece of art 3</h3>
-                    <p class="artwork-description">description of the piece.</p>
-                    <div class="artwork-price">Starting at $00.00</div>
+                    <h3 class="artwork-title">Piece of Art 3</h3>
+                    <p class="artwork-description">Description of the piece</p>
+                    <div class="artwork-price">Starting price: $00.00</div>
                 </div>
             </div>
 
@@ -451,9 +654,9 @@
                 <div class="artwork-image">
                 </div>
                 <div class="artwork-info">
-                    <h3 class="artwork-title">piece of art 4</h3>
-                    <p class="artwork-description">description of the piece.</p>
-                    <div class="artwork-price">Starting at $00.00</div>
+                    <h3 class="artwork-title">Piece of Art 4</h3>
+                    <p class="artwork-description">Description of the piece</p>
+                    <div class="artwork-price">Starting price: $00.00</div>
                 </div>
             </div>
 
@@ -461,9 +664,9 @@
                 <div class="artwork-image">
                 </div>
                 <div class="artwork-info">
-                    <h3 class="artwork-title">piece of art 5</h3>
-                    <p class="artwork-description">description of the piece.</p>
-                    <div class="artwork-price">Starting at $00.00</div>
+                    <h3 class="artwork-title">Piece of Art 5</h3>
+                    <p class="artwork-description">Description of the piece</p>
+                    <div class="artwork-price">Starting price: $00.00</div>
                 </div>
             </div>
 
@@ -471,9 +674,9 @@
                 <div class="artwork-image">
                 </div>
                 <div class="artwork-info">
-                    <h3 class="artwork-title">piece of art 6</h3>
-                    <p class="artwork-description">description of the piece.</p>
-                    <div class="artwork-price">Starting at $00.00</div>
+                    <h3 class="artwork-title">Piece of Art 6</h3>
+                    <p class="artwork-description">Description of the piece</p>
+                    <div class="artwork-price">Starting price: $00.00</div>
                 </div>
             </div>
 
@@ -524,7 +727,7 @@
                 <div class="modal-price" id="modalPrice"></div>
                 
                 <div class="message-form">
-                    <div class="form-question">Why do you want the product?</div>
+                    <div class="form-question" id="formQuestion">Why do you want the product?</div>
                     <textarea class="message-textarea" id="messageText" placeholder="Tell me why you're interested in this piece..."></textarea>
                     <button class="send-btn" onclick="sendMessage()">Send</button>
                 </div>
@@ -533,16 +736,34 @@
     </div>
 
     <script>
+        // Header scroll effect
+        let lastScrollTop = 0;
+        const header = document.getElementById('header');
+
+        window.addEventListener('scroll', function() {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (scrollTop > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+            
+            lastScrollTop = scrollTop;
+        });
+
         // Get modal elements
         const modal = document.getElementById('artworkModal');
         const closeBtn = document.getElementsByClassName('close')[0];
         const artworks = document.getElementsByClassName('artwork');
 
-        // Add click event to all artwork items
+        // Add click event to all artwork items except custom
         for (let i = 0; i < artworks.length; i++) {
-            artworks[i].addEventListener('click', function() {
-                openModal(this);
-            });
+            if (!artworks[i].classList.contains('custom-artwork')) {
+                artworks[i].addEventListener('click', function() {
+                    openModal(this);
+                });
+            }
         }
 
         // Open modal function
@@ -555,13 +776,36 @@
             document.getElementById('modalTitle').textContent = title;
             document.getElementById('modalDescription').textContent = description;
             document.getElementById('modalPrice').textContent = price;
+            document.getElementById('formQuestion').textContent = 'Why do you want the product?';
+            document.getElementById('messageText').placeholder = 'Tell me why you\'re interested in this piece...';
             
             // Clear previous message
             document.getElementById('messageText').value = '';
 
             // Show modal
             modal.style.display = 'block';
-            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Open custom modal function
+        function openCustomModal() {
+            document.getElementById('modalTitle').textContent = 'Custom Artwork';
+            document.getElementById('modalDescription').textContent = 'Commission a personalized artwork';
+            document.getElementById('modalPrice').textContent = 'Contact for pricing';
+            document.getElementById('formQuestion').textContent = 'What do you want?';
+            document.getElementById('messageText').placeholder = 'Explain exactly what you want me to draw...';
+            
+            // Update modal image for custom
+            const modalImage = document.getElementById('modalArtworkImage');
+            modalImage.innerHTML = '<i class="fas fa-palette"></i>';
+            modalImage.style.background = 'linear-gradient(45deg, #fd79a8, #fdcb6e)';
+            
+            // Clear previous message
+            document.getElementById('messageText').value = '';
+
+            // Show modal
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
         }
 
         // Close modal when clicking the X
@@ -579,7 +823,12 @@
         // Close modal function
         function closeModal() {
             modal.style.display = 'none';
-            document.body.style.overflow = 'auto'; // Restore scrolling
+            document.body.style.overflow = 'auto';
+            
+            // Reset modal image
+            const modalImage = document.getElementById('modalArtworkImage');
+            modalImage.innerHTML = '';
+            modalImage.style.background = 'linear-gradient(45deg, #ddd6fe, #c7d2fe)';
         }
 
         // Send message function
@@ -593,7 +842,13 @@
             }
 
             // Create WhatsApp message
-            const whatsappMessage = `Hi! I'm interested in "${artworkTitle}". ${message}`;
+            let whatsappMessage;
+            if (artworkTitle === 'Custom Artwork') {
+                whatsappMessage = `Hi! I want to commission a custom artwork. ${message}`;
+            } else {
+                whatsappMessage = `Hi! I'm interested in "${artworkTitle}". ${message}`;
+            }
+            
             const phoneNumber = '13214997879';
             const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(whatsappMessage)}`;
             
@@ -610,6 +865,16 @@
                 closeModal();
             }
         });
+
+        // Prevent zoom on double tap for iOS
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', function (event) {
+            const now = (new Date()).getTime();
+            if (now - lastTouchEnd <= 300) {
+                event.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, false);
     </script>
 </body>
 </html>
